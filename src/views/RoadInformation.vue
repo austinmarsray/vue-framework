@@ -255,7 +255,6 @@
         methods:{
             handleSubmit(){
                 let ws = new WebSocket(this.$store.state.verification.Address);
-
                 this.road.RoadLength = parseFloat(this.road.RoadLength);
                 this.road.RoadWidth = parseFloat(this.road.RoadWidth);
                 this.road.RoadSquare = parseFloat(this.road.RoadSquare);
@@ -264,13 +263,13 @@
                 this.road.AADT = parseInt(this.road.AADT);
                 this.road.SurfaceThick = parseFloat(this.road.SurfaceThick);
                 this.road.InnerThick = parseFloat(this.road.InnerThick);
-
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(this.road));
-                };
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(this.road));
+                // };
+                websocket.send(JSON.stringify(this.road));
                 //接收
-                ws.onmessage =(event)=>{
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
@@ -298,5 +297,4 @@
 </script>
 
 <style scoped>
-
 </style>

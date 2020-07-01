@@ -19,6 +19,42 @@
 <script src=<%= htmlWebpackPlugin.options.path %>js/jquery.particleground.min.js></script>
 <script src="https://cdn.bootcss.com/tinymce/4.6.6/tinymce.min.js"></script>
 
+
+<script>
+    var websocket = null
+    // var localHref = window.location.host === 'localhost:9528' ? '线上服务器地址' : window.location.host
+    localStorage.setItem('isOk', '0')
+    localStorage.setItem('tipsData', '')
+    if ('WebSocket' in window) {
+      // websocket = new WebSocket('ws://线上服务器地址/webSocket')
+      websocket = new WebSocket('ws://127.0.0.1:4200/')
+      // websocket = new WebSocket('ws://' + localHref + '/webSocket')
+    } else {
+      alert('该浏览器不支持websocket!')
+    }
+    websocket.onopen = function(event) {
+      console.log('建立连接')
+    };
+    websocket.onmessage = function(event) {
+      console.log('socket收到消息', event);
+      console.log('收到消息:' + event.data);
+      // alert('收到消息:' + event.data)
+      localStorage.setItem('isOk', '1');
+      localStorage.setItem('tipsData', event.data)
+    };
+    websocket.onerror = function() {
+      console.log('websocket通信发生错误！')
+    };
+    window.onbeforeunload = function() {
+      websocket.close()
+    };
+    websocket.onclose = function(event) {
+      console.log('连接关闭');
+      localStorage.setItem('isOk', '0');
+      localStorage.setItem('tipsData', '')
+    }
+</script>
+
 </body>
 
 </html>

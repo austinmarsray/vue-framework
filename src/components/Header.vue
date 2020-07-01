@@ -9,7 +9,7 @@
      
     </ul>
 
-    <ul class="nav navbar-nav d-md-down-none">
+    <!-- <ul class="nav navbar-nav d-md-down-none">
       
        <li class="nav-item header-item">
   
@@ -32,7 +32,7 @@
    <li class="nav-item header-item">
         <!--   -->
 
-        <Dropdown>
+        <!-- <Dropdown>
       <router-link tag="div" to='/'  style="height:55px;" class="nav-link">
             <p><Icon type="android-cloud" size='30' color="#2d8cf0"></Icon></p>
             <p  style="color:white"> 云服务器 </p>
@@ -48,7 +48,7 @@
 
 
 
-      </li>
+      </li> --> 
 
 <!-- 
         <li class="nav-item header-item">

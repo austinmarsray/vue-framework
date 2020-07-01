@@ -14,68 +14,6 @@
                         </Form-item>
                     </Col>
                     <Col span="12">
-<!--                        <Form-item label="损坏类型">-->
-<!--                            <Select v-model="select_1" @on-change="select1_change()">-->
-<!--                                <Option value="沥青路">沥青路</Option>-->
-<!--                                <Option value="水泥路">水泥路</Option>-->
-<!--                            </Select>-->
-
-<!--                            <Select v-model="select_2" v-show="select_1==='沥青路'">-->
-<!--                                <Option value="裂缝类">裂缝类</Option>-->
-<!--                                <Option value="变形类">变形类</Option>-->
-<!--                                <Option value="松散类">松散类</Option>-->
-<!--                                <Option value="其他类">其他类</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_2" v-show="select_1==='水泥路'">-->
-<!--                                <Option value="裂缝类">裂缝类</Option>-->
-<!--                                <Option value="接缝破坏类">接缝破坏类</Option>-->
-<!--                                <Option value="表面破坏类">表面破坏类</Option>-->
-<!--                                <Option value="其他类">其他类</Option>-->
-<!--                            </Select>-->
-
-<!--                            <Select v-model="select_3" v-show="select_2==='裂缝类'">-->
-<!--                                <Option value="线裂">线裂</Option>-->
-<!--                                <Option value="网裂" v-show="select_1==='沥青路'">网裂 </Option>-->
-<!--                                <Option value="龟裂" v-show="select_1==='沥青路'">龟裂 </Option>-->
-<!--                                <Option value="板角断裂" v-show="select_1==='水泥路'">板角断裂</Option>-->
-<!--                                <Option value="边角断裂" v-show="select_1==='水泥路'">边角断裂</Option>-->
-<!--                                <Option value="交叉裂缝和破碎板" v-show="select_1==='水泥路'">交叉裂缝和破碎板</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='变形类'">-->
-<!--                                <Option value="拥包">拥包</Option>-->
-<!--                                <Option value="车辙">车辙</Option>-->
-<!--                                <Option value="沉陷">沉陷</Option>-->
-<!--                                <Option value="翻浆">翻浆</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='松散类'">-->
-<!--                                <Option value="剥落">剥落</Option>-->
-<!--                                <Option value="坑槽">坑槽</Option>-->
-<!--                                <Option value="啃边">啃边</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='其他类' && select_1==='沥青路'">-->
-<!--                                <Option value="路框差">路框差</Option>-->
-<!--                                <Option value="唧浆">唧浆</Option>-->
-<!--                                <Option value="泛油">泛油</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='接缝破坏类'">-->
-<!--                                <Option value="接缝料损坏">接缝料损坏</Option>-->
-<!--                                <Option value="边角剥落">边角剥落</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='表面破坏类'">-->
-<!--                                <Option value="坑洞">坑洞</Option>-->
-<!--                                <Option value="表面纹裂">表面纹裂</Option>-->
-<!--                                <Option value="层状剥落">层状剥落</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2==='其他类' && select_1==='水泥路'">-->
-<!--                                <Option value="错台">错台</Option>-->
-<!--                                <Option value="拱胀">拱胀</Option>-->
-<!--                                <Option value="唧浆">唧浆</Option>-->
-<!--                                <Option value="路框差">路框差</Option>-->
-<!--                                <Option value="沉陷">沉陷</Option>-->
-<!--                            </Select>-->
-<!--                            <Select v-model="select_3" v-show="select_2 === undefined ">-->
-<!--                            </Select>-->
-<!--                        </Form-item>-->
                         <form-item label="损坏程度">
                             <Select v-model="select_1" @on-change="func_select1()">
                                 <Option value="沥青路">沥青路</Option>
@@ -91,9 +29,6 @@
                     </Col>
 
                     <Col span="24">
-    <!--                    <Form-item label="用户编号">-->
-    <!--                        <Input v-model="DailyReport.UserNo" placeholder=""></Input>-->
-    <!--                    </Form-item>-->
                         <Form-item label="日期">
                             <Date-picker type="date" placeholder="日期" v-model="DailyReport.ReportDate" readonly></Date-picker>
                         </Form-item>
@@ -142,15 +77,16 @@
         },
         methods: {
             handleSubmit(){
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 this.DailyReport.DamageType = this.select_1 + this.select_2 + this.select_3;
 
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(this.DailyReport));
-                };
+                // websocket.onopen =()=> {
+                //     websocket.send(JSON.stringify(this.DailyReport));
+                // };
+                websocket.send(JSON.stringify(this.DailyReport));
                 //接收
-                ws.onmessage =(event)=>{
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
@@ -181,27 +117,31 @@
                 this.select_1 = "";
             },
             func_RoadName_RoadNo (){
-                let ws = new WebSocket(this.$store.state.verification.Address);
-                let text = {"OT":5 , "RoadName":this.DailyReport.RoadName , "Token":"LHX123"};
+                this.DailyReport.RoadNo = "";
+                this.select_1 = "";
+                // let ws = new WebSocket(this.$store.state.verification.Address);
+                let text = {"OT":5 , "RoadName":this.DailyReport.RoadName , "Token":this.DailyReport.Token};
 
                 if (this.DailyReport.RoadName ===""){
                     return;
                 }
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(text));
-                };
-
-                ws.onmessage =(event)=>{
+                // websocket.onopen =()=> {
+                //     websocket.send(JSON.stringify(text));
+                // };
+                websocket.send(JSON.stringify(text));
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
                         this.DailyReport.RoadNo = json['RoadNo'];
+                        let x = json['RoadType'];
+                        this.select_1 = x;
+                        this.func_select1();
                     }
                     if (this.result === 0) {
                         this.$Message.error('该路不存在!');
-                        this.DailyReport.RoadNo = "";
                     }
-                }
+                };
             },
             func_select1 (){
                 this.option_2 = [];

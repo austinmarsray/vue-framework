@@ -63,15 +63,16 @@
         },
         methods: {
             handleSubmit(){
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 this.FlatReport.IRI = parseFloat(this.FlatReport.IRI);
-                console.log(this.$store.state.verification);
+                // console.log(this.$store.state.verification);
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(this.FlatReport));
-                };
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(this.FlatReport));
+                // };
+                websocket.send(JSON.stringify(this.FlatReport));
                 //接收
-                ws.onmessage =(event)=>{
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
@@ -107,13 +108,13 @@
                 if (this.FlatReport.RoadName ===""){
                     return;
                 }
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 let text = {"OT":10 , "RoadName":this.FlatReport.RoadName , "Token":this.FlatReport.Token};
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(text));
-                };
-
-                ws.onmessage =(event)=>{
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(text));
+                // };
+                websocket.send(JSON.stringify(text));
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){

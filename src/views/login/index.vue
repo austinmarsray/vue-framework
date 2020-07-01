@@ -143,18 +143,19 @@ animate();
        },
       methods: {
         handleLogin() {
-          let ws = new WebSocket(this.$store.state.verification.Address);
-          ws.onopen =()=> {
-              ws.send(JSON.stringify(this.loginInfo));
-          };
-          ws.onmessage =(event)=>{
+          // let ws = new WebSocket(this.$store.state.verification.Address);
+          // ws.onopen =()=> {
+          //     ws.send(JSON.stringify(this.loginInfo));
+          // };
+          websocket.send(JSON.stringify(this.loginInfo));
+          websocket.onmessage =(event)=>{
               var json = JSON.parse(event.data);
               this.result = json['result'];
               if (this.result === 1){
 
                   let text = {'result': 1, 'UserName':json['UserName'], 'UserNo':json['UserNo'], 'AuthorityLevel':json['AuthorityLevel'] , 'Token':json['Token']};
                   this.$store.commit('receiveInfo',text);
-                    console.log(text);
+                  console.log(text);
                   this.$refs.loginForm.validate(valid => {
                     if (valid) {
                       this.loading = true;

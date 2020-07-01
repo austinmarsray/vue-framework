@@ -42,14 +42,10 @@ const filters = {
   completed: todos => todos.filter(todo => todo.done)
 }
 const defalutList = [
-{ text: '吾日七省吾身', done: false },
-  { text: 'star this repository  (给这个项目点星了吗？)', done: false },
-  { text: 'fork this repository  (fork这个项目了吗？)', done: false },
-  { text: 'follow author         (关注这个作者了吗？)', done: false },
-  { text: 'read blogs            (阅读教程了吗？)', done: false },
-  { text: 'use and learn         (学到新东西了吗？)', done: false },
-  { text: 'make a cool project?  (搞了一个牛项目吗？)', done: false },
-   { text: 'are you a single dog?(是不是女朋友丢了？)', done: false },
+{ text: '吾日三省吾身', done: false },
+  { text: '课程设计做完了吗？', done: false },
+  { text: '大作业做完了吗？', done: false },
+  { text: '概率论复习了吗？', done: false },
 ]
 export default {
   components: { Todo },

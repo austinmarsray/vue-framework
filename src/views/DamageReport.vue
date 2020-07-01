@@ -108,15 +108,15 @@
         },
         methods: {
             handleSubmit(){
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 this.DamageReport.DamageType = this.select_1 + this.select_2 + this.select_3;
-
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(this.DamageReport));
-                };
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(this.DamageReport));
+                // };
+                websocket.send(JSON.stringify(this.DamageReport));
                 //接收
-                ws.onmessage =(event)=>{
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
@@ -153,23 +153,25 @@
             func_RoadName_RoadNo (){
                 this.DamageReport.RoadNo = "";
                 this.DamageReport.RegularNo = "";
+                this.select_1 = "";
+
                 if (this.DamageReport.RoadName ===""){
                     return;
                 }
-
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 let text = {"OT":10 , "RoadName":this.DamageReport.RoadName , "Token":this.DamageReport.Token};
-
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(text));
-                };
-
-                ws.onmessage =(event)=>{
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(text));
+                // };
+                websocket.send(JSON.stringify(text));
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
                         this.DamageReport.RoadNo = json['RoadNo'];
                         this.DamageReport.RegularNo = json['RegularNo'];
+                        this.select_1 = json['RoadType'];
+                        this.func_select1();
                     }
                     if (this.result === 0) {
                         this.$Message.error('该路不存在!');
@@ -229,5 +231,4 @@
 </script>
 
 <style scoped>
-
 </style>

@@ -74,13 +74,14 @@
                 this.istrue = !this.istrue;
             },
             handleView (){
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
                 let text = {"OT": 12, "Token": this.RegularReport.Token};
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(text));
-                };
-                ws.onmessage =(event)=>{
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(text));
+                // };
+                websocket.send(JSON.stringify(text));
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
@@ -97,11 +98,8 @@
                          this.$Message.error('权限不足!');
                      }
                 };
-                ws.onclose = () => {
-                };
             },
             func_cancel (){
-                console.log(1111)
                 this.RegularReport.RegularName = "";
                 this.RegularReport.RoadNo = "";
                 this.RegularReport.StartDate = "";
@@ -110,17 +108,18 @@
             },
             func_ok (){
 
-                let ws = new WebSocket(this.$store.state.verification.Address);
+                // let ws = new WebSocket(this.$store.state.verification.Address);
 
                 //发送
-                ws.onopen =()=> {
-                    ws.send(JSON.stringify(this.RegularReport));
-
-                    // let text = {"RegularName":this.RegularReport.RegularName,"RoadNo":this.RegularReport.RoadNo,"StartDate":this.RegularReport.StartDate,"EndDate":this.RegularReport.EndDate};
-                    // this.data6.push(text);
-                };
+                // ws.onopen =()=> {
+                //     ws.send(JSON.stringify(this.RegularReport));
+                //
+                //     // let text = {"RegularName":this.RegularReport.RegularName,"RoadNo":this.RegularReport.RoadNo,"StartDate":this.RegularReport.StartDate,"EndDate":this.RegularReport.EndDate};
+                //     // this.data6.push(text);
+                // };
+                websocket.send(JSON.stringify(this.RegularReport));
                 //接收
-                ws.onmessage =(event)=>{
+                websocket.onmessage =(event)=>{
                     var json = JSON.parse(event.data);
                     this.result = json['result'];
                     if (this.result === 1){
