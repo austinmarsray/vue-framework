@@ -6,9 +6,11 @@
                     <Form-item>
                         <Button type="info" @click="handleView('DailyReport')">获取定期检测计划</Button>
                         <Button type="primary" @click="handleSubmit('DailyReport')" style="margin-left: 25px">添加定期检测</Button>
+                        <Button type="success" @click="func_generate('DailyReport')" style="margin-left: 25px">生成调查表和评价表</Button>
                     </Form-item>
                     <Form-item>
-                        <Table border :columns="columns12" :data="data6"></Table>
+                        <Table border ref="selection" :columns="columns12" :data="data6" @on-select="func_get"></Table>
+<!--                        <Table border :columns="columns12" :data="data6"></Table>-->
                     </Form-item>
                 </Form>
 
@@ -50,6 +52,11 @@
                 istrue: false,
                 columns12: [
                     {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
                         title: '定期检查编号',
                         key: 'RegularNo'
                     },
@@ -66,7 +73,8 @@
                         key: 'RoadName'
                     },
                 ],
-                data6: []
+                data6: [],
+                select_RegularNo: ""
             }
         },
         methods: {
@@ -141,9 +149,31 @@
                     content: `定期检查编号：${this.data6[index].RegularNo}<br>定期检查描述：${this.data6[index].RegularName}<br>道路编号：${this.data6[index].RoadNo}<br>道路名称：${this.data6[index].RoadName}`
                 })
             },
-            // remove (index) {
-            //     this.data6.splice(index, 1);
-            // }
+            func_get (selection,row){
+                console.log(row);
+                this.select_RegularNo = row.RegularNo;
+                if (selection.length !== 1){
+                    this.select_RegularNo = "";
+                }
+                console.log(this.select_RegularNo)
+            },
+            func_generate (){
+                let x = {"OT":13, "RegularNo": this.select_RegularNo, "Token": this.RegularReport.Token};
+                websocket.send(JSON.stringify(x));
+                websocket.onmessage =(event)=>{
+                    var json = JSON.parse(event.data);
+                    this.result = json['result'];
+                    if (this.result === 1){
+                        this.$Message.success('生成成功!');
+                    }
+                     if (this.result === 0){
+                        this.$Message.error('操作失败!');
+                    }
+                     if (this.result === -1){
+                         this.$Message.error('权限不足!');
+                     }
+                };
+            }
         }
     }
 </script>

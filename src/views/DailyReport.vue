@@ -3,6 +3,28 @@
         <Row>
             <Col>
                 <Form :label-width="80" :model="DailyReport">
+                    <Col span="24">
+                    <Form-item>
+                            <p style="color: #000000; font-size: 24px">获取日常巡检表</p>
+                            <br />
+                        </Form-item>
+                        <Form-item>
+                             <Button type="info" @click="func_getDR('DailyReport')">获取日常巡检表</Button>
+                        </Form-item>
+                        <form-item>
+                            <Table border :columns="columns1" :data="data1"></Table>
+                        </form-item>
+                        <Form-item>
+                            <br /><br />
+                            <hr style="border:5px dashed #0e83cd;height:1px" />
+                            <br /><br />
+                        </Form-item>
+                    </Col>
+                    <Col span="24">
+                         <Form-item>
+                        <p style="color: #000000; font-size: 24px">录入日常巡检表</p>
+                        <br />
+                    </Form-item>
                     <Col span="12">
                         <Form-item label="路名">
                             <Input v-model="DailyReport.RoadName" placeholder="" @on-blur="func_RoadName_RoadNo()"></Input>
@@ -46,6 +68,7 @@
                             <Button type="ghost" @click="handleReset('DailyReport')" style="margin-left: 8px">重置</Button>
                         </Form-item>
                     </Col>
+                    </Col>
                 </Form>
             </Col>
         </Row>
@@ -72,7 +95,23 @@
                 select_2: "",
                 option_2: [],
                 select_3: "",
-                option_3: []
+                option_3: [],
+                columns1: [
+                    {
+                        title: '道路编号',
+                        key: 'RoadNo'
+                    },
+                    {
+                        title: '道路名称',
+                        key: 'RoadName'
+                    },
+                    {
+                        title: '道路养护等级',
+                        key: 'ConservationLevel'
+                    }
+                ],
+                data1: [
+                ]
             }
         },
         methods: {
@@ -190,6 +229,27 @@
                     }
                 }
                 this.option_3 = x;
+            },
+            func_getDR (){
+                let text = {"OT": 9, "Token": this.DailyReport.Token};
+                websocket.send(JSON.stringify(text));
+                websocket.onmessage =(event)=>{
+                    var json = JSON.parse(event.data);
+                    this.result = json['result'];
+                    if (this.result === 1){
+                        this.$Message.success('获取成功!');
+
+                        let x = json['info'];
+                        console.log(x);
+                        this.data1 = x;
+                    }
+                     if (this.result === 0){
+                        this.$Message.error('操作失败!');
+                    }
+                     if (this.result === -1){
+                         this.$Message.error('权限不足!');
+                     }
+                };
             }
         }
     }
