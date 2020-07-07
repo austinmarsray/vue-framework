@@ -1,4 +1,5 @@
-import { asyncRouterMap, constantRouterMap } from 'src/router';
+import { asyncRouterMap, constantRouterMap,router1,router2,router3 } from 'src/router';
+import verification from 'src/store/modules/verification';
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -88,10 +89,22 @@ const permission = {
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters
-        if (roles.indexOf('admin') >= 0) {
-          accessedRouters = asyncRouterMap
-        } else {
-          accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        // if (roles.indexOf('admin') >= 0) {
+        //   accessedRouters = asyncRouterMap
+        // } else {
+        //   accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        // }
+        if (verification.state.AuthorityLevel === 1){
+            accessedRouters = router1
+        }
+        else if (verification.state.AuthorityLevel === 2){
+            accessedRouters = router2
+        }else if (verification.state.AuthorityLevel === 3){
+            accessedRouters = router3
+        }
+        else {
+            console.log(verification.state.UserName)
+          accessedRouters = filterAsyncRouter(router3, roles)
         }
 
 
