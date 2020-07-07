@@ -47,13 +47,14 @@ export const asyncRouterMap = [
     component: Full,
     hidden:false,
     children: [
-    {path: '/dashboard',name: 'Dashboard',icon:'speedometer',component: _import('Dashboard')},
+    {path: '/dashboard',name: '首页',icon:'speedometer',component: _import('Dashboard')},
       {path:'/RoadInformation', name: '道路基本信息', icon: "bookmark", component: _import('RoadInformation')},
       {path:'/DailyReport', name: '日常巡检表', icon: 'merge', component: _import('DailyReport')},
+      {path: '/RegularReport', name: '定期检查', icon: 'ios-paper', component: _import('RegularReport')},
       {path:'/FlatReport', name: '道路平整度检测表', icon: 'ios-paper', component: _import('FlatReport')},
       {path:'/DamageReport', name: '道路损坏记录表', icon: 'ios-paper', component: _import('DamageReport')},
-      {path: '/RegularReport', name: '定期检查', icon: 'ios-paper', component: _import('RegularReport')},
-      {path: '/map', name: '道路地图展示',icon:'ios-paper',component: _import('map')}
+      {path: '/map', name: '道路地图展示',icon:'ios-paper',component: _import('map')},
+      {path: '/statistics', name: '统计页面',icon:'ios-paper',component: _import('statistics')}
     ]
   },
 

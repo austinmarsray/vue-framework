@@ -8,62 +8,6 @@
       </li>
      
     </ul>
-
-    <!-- <ul class="nav navbar-nav d-md-down-none">
-      
-       <li class="nav-item header-item">
-  
-
-          <router-link tag="div" to='/'  style="height:55px;" class="nav-link">
-            <p><Icon type="compose" size='30' color="#2d8cf0"></Icon></p>
-            <p  style="color:white"> 留言管理 </p>
-        </router-link> 
-      </li>
-        <li class="nav-item header-item">
-        
-        <router-link tag="div" to='/home1'  style="height:55px;" class="nav-link">
-            <p><Icon type="stats-bars" size='30' color="#2d8cf0"></Icon></p>
-            <p  style="color:white"> 浏览排行 </p>
-        </router-link> 
-
-
-      </li>
-
-   <li class="nav-item header-item">
-        <!--   -->
-
-        <!-- <Dropdown>
-      <router-link tag="div" to='/'  style="height:55px;" class="nav-link">
-            <p><Icon type="android-cloud" size='30' color="#2d8cf0"></Icon></p>
-            <p  style="color:white"> 云服务器 </p>
-        </router-link>
-        <DropdownMenu slot="list">
-            <DropdownItem>Linux</DropdownItem>
-            <DropdownItem>Mac OS X</DropdownItem>
-            <DropdownItem>Windows</DropdownItem>
-            
-            <DropdownItem>Core OS</DropdownItem>
-        </DropdownMenu>
-    </Dropdown>
-
-
-
-      </li> --> 
-
-<!-- 
-        <li class="nav-item header-item">
-      
-
-         <router-link tag="div" to='/home1'  style="height:55px;" class="nav-link">
-            <p><Icon type="trophy" size='30' color="#2d8cf0"></Icon></p>
-            <p  style="color:white"> 销量排行 </p>
-        </router-link> 
-
-
-      </li> -->
-
-
-
      
     </ul>
 
@@ -71,7 +15,7 @@
     <ul class="nav navbar-nav ml-auto">
       
       <li class="nav-item d-md-down-none">
-        <a class="nav-link" ><Icon type="android-notifications" size="20"></Icon><span class="badge badge-pill badge-danger">5</span></a>
+        <a class="nav-link" ><Icon type="android-notifications" size="20"></Icon><span class="badge badge-pill badge-danger"></span></a>
       </li>
 
 

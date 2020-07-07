@@ -10,13 +10,10 @@
 <style scoped>
 .echarts {
   border-radius:4px;
-    
-  height: 250px;
+  height: 350px;
   width: 100%;
 
 }
-
-
 </style>
 
 <script>
@@ -42,77 +39,67 @@ var data = [{
 
 
 export default {
-    mounted(){
+  mounted(){
     },
+  props: ['ctext', 'data1', 'data2'],
   data: function () {
-   
     return {
-
-
-
-
-
-option : {
-    backgroundColor: '#49586e',
-    title: {
-        text: '注册资金',
-        x: '20%',
-        y: 'center',
-        textStyle: {
-            fontWeight: 'normal',
-            fontSize: 20,
-             color: '#fff',
-        }
-    },
-    tooltip: {
-        show: true,
-        trigger: 'item',
-        formatter: "{b}: {c} ({d}%)"
-    },
-    legend: {
-        orient: 'vertical',
-        right: '5%',
-         top: '25%',
-           textStyle: {
-            fontWeight: 'normal',
-            fontSize: 16,
-             color: '#fff',
-        },
-        data: ['<10w', '10w-50w', '50w-100w', '100w-500w', '>500w']
-    },
-    series: [{
-        type: 'pie',
-        selectedMode: 'single',
-         center: ['30%', '50%'],
-        radius: ['50%', '80%'],
-        // color: ['#86D560', '#AF89D6', '#59ADF3', '#FF999A', '#FFCC67'],
-        color: ['#AF89D6', '#5ab6df', '#6a8bc0', '#4acacb', '#fe8676'],
-
-        label: {
-            normal: {
-                position: 'inner',
-                formatter: '{d}%',
-
+        option : {
+            backgroundColor: '#49586e',
+            title: {
+                text: this.ctext,
+                x: '22%',
+                y: 'center',
                 textStyle: {
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    fontSize: 12
+                    fontWeight: 'normal',
+                    fontSize: 20,
+                     color: '#fff',
                 }
-            }
-        },
-        labelLine: {
-            normal: {
-                show: false
-            }
-        },
-        data: data
-    }]
-}
-  
-    
+            },
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                formatter: "{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: '65%',
+                 top: '25%',
+                   textStyle: {
+                    fontWeight: 'normal',
+                    fontSize: 16,
+                     color: '#fff',
+                },
+                data: this.data1
+            },
+            series: [{
+                type: 'pie',
+                selectedMode: 'single',
+                center: ['30%', '50%'],
+                radius: ['50%', '80%'],
+                // color: ['#86D560', '#AF89D6', '#59ADF3', '#FF999A', '#FFCC67'],
+                color: ['#AF89D6', '#5ab6df', '#6a8bc0', '#4acacb', '#fe8676'],
 
+                label: {
+                    normal: {
+                        position: 'inner',
+                        formatter: '{d}%',
 
-
+                        textStyle: {
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            fontSize: 12
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: this.data2
+            }]
+        }
     }
   }
 }
